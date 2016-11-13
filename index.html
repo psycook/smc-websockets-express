@@ -1,0 +1,45 @@
+<html>
+
+<head>
+    <title>Websocket Test</title>
+    <script>
+        var ws;
+
+        function registerWebSocket() {
+            // register this client with the server
+            ws = new WebSocket('ws://localhost:8080', 'room-service-protocol');
+
+            // this event listener is called when the server posts a message
+            ws.addEventListener("message", function(e) {
+                // The data a JSON object with type and data values
+                var msg = e.data;
+                var myObject = JSON.parse(msg);
+
+                console.log("Received command with type" + myObject.type + " and data " + myObject.data)
+
+                // check to see what type of request the server has sent
+                if (myObject.type === 'message') {
+                    document.getElementById('message-div').innerHTML += '<br>' + myObject.data;
+                } else if (myObject.type === 'bgcolor') {
+                    document.body.style.backgroundColor = myObject.data
+                }
+            });
+        }
+
+        // A callback function for the button.  An example of sending a message
+        // to the server
+        function sendMessage() {
+            var message = document.getElementById('message').value;
+            ws.send(message)
+        }
+    </script>
+</head>
+
+<body onload="registerWebSocket();">
+    <div id="message-div">
+    </div>
+    <input type="text" id="message" />
+    <input type="button" value="send" onclick="sendMessage();" />
+</body>
+
+</html>
