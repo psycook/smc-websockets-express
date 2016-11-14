@@ -4,6 +4,9 @@ var bodyParser = require('body-parser');
 var expressWs = require('express-ws')(app);
 var port = process.env.PORT || 8080;
 
+//set the port for the app
+app.set('port', port);
+
 // register the body parse for access to the JSON objects
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
@@ -14,14 +17,15 @@ app.use(function(req, res, next) {
     return next();
 });
 
-app.use(express.static('public_html'));
+app.use(express.static(__dirname + '/public'));
 
-// the standard get fuction
-app.get('/', function(req, res, next) {
-    console.log('get route', req.roomserviceprotocol);
-    res.send("Room Service Running");
-    res.end();
+app.set('views', __dirname + '/views');
+app.set('view engine', 'ejs');
+
+app.get('/', function(request, response) {
+  response.render('pages/index');
 });
+
 
 /*
  * this function is called when the web browser registers with the
