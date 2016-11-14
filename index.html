@@ -2,6 +2,7 @@
 
 <head>
     <title>Websocket Test</title>
+    <script src="js/jquery-3.1.1.min.js"></script>
     <script>
         var ws;
 
@@ -19,9 +20,10 @@
 
                 // check to see what type of request the server has sent
                 if (myObject.type === 'message') {
-                    document.getElementById('message-div').innerHTML += '<br>' + myObject.data;
+                    $('#message-div').append('<br>' + myObject.data);
+
                 } else if (myObject.type === 'bgcolor') {
-                    document.body.style.backgroundColor = myObject.data
+                    $("body, this").css("background-color",myObject.data);
                 }
             });
         }
