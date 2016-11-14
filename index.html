@@ -32,9 +32,13 @@
             var message = $('#message').val();
             ws.send(message)
         }
+
+        $(document).ready(function() {
+          registerWebSocket();
+        });
     </script>
 </head>
-<body onload="registerWebSocket();">
+<body>
     <div id="message-div">
     </div>
     <input type="text" id="message" />
