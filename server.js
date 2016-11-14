@@ -14,6 +14,8 @@ app.use(function(req, res, next) {
     return next();
 });
 
+app.use(express.static('public_html'));
+
 // the standard get fuction
 app.get('/', function(req, res, next) {
     console.log('get route', req.roomserviceprotocol);
