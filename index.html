@@ -1,5 +1,4 @@
 <html>
-
 <head>
     <title>Websocket Test</title>
     <script src="js/jquery-3.1.1.min.js"></script>
@@ -21,9 +20,8 @@
                 // check to see what type of request the server has sent
                 if (myObject.type === 'message') {
                     $('#message-div').append('<br>' + myObject.data);
-
                 } else if (myObject.type === 'bgcolor') {
-                    $("body, this").css("background-color",myObject.data);
+                    $("body, this").css("background-color", myObject.data);
                 }
             });
         }
@@ -31,17 +29,15 @@
         // A callback function for the button.  An example of sending a message
         // to the server
         function sendMessage() {
-            var message = document.getElementById('message').value;
+            var message = $('#message').val();
             ws.send(message)
         }
     </script>
 </head>
-
 <body onload="registerWebSocket();">
     <div id="message-div">
     </div>
     <input type="text" id="message" />
     <input type="button" value="send" onclick="sendMessage();" />
 </body>
-
 </html>
